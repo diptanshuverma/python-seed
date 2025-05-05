@@ -23,7 +23,7 @@ from common_fastapi import create_app
 from .db import init_db
 
 # Import routers for API endpoints
-from .domain import book_router, health_router, test_router, publisher_router
+from .domain import book_router, health_router, test_router, publisher_router, solar_panel_router
 
 
 logger = logging.getLogger(__name__)
@@ -69,5 +69,6 @@ app = create_app(
 # Include the API routes into the application
 app.include_router(book_router)
 app.include_router(publisher_router)
+app.include_router(solar_panel_router)
 app.include_router(test_router)
 app.include_router(health_router)
