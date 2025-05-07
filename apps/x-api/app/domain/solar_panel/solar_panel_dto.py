@@ -1,5 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel
+from typing import List, Optional
 from .solar_panel_entity import SolarPanel
 
 class SolarPanelResult(SolarPanel):
@@ -15,3 +16,12 @@ class SolarPanelCreateForm(BaseModel):
     installation_timestamp: datetime
     latitude: float
     longitude: float
+    
+class PaginatedSolarPanel(BaseModel):
+    """Pagination response schema for SolarPanel"""
+    page_size: int
+    current_page: int
+    total_records: int
+    next_page: Optional[int]
+    previous_page: Optional[int]
+    SolarPanel: List[SolarPanelResult]

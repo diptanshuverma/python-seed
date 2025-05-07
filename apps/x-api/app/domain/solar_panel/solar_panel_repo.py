@@ -56,11 +56,20 @@ class SolarPanelRepository:
         df = self.conn.execute(query).df()
         return [SolarPanel(**row) for row in df.to_dict(orient='records')]
 
-    def find_all_by_pagination(self, limit: int, page_number: int) -> list[SolarPanel]:
-        """Retrieve paginated solar panel records."""
-        offset = (page_number - 1) * limit
+    def find_all_by_pagination(self, limit: int, page_number: int) -> tuple[list[SolarPanel], int]:
+        """Retrieve paginated solar panel records and total count."""
         info_file = str(self.INFO_PATH)
         loc_file = str(self.LOCATION_PATH)
+        # total count
+        count_query = f"""
+            SELECT COUNT(*) AS cnt
+            FROM read_parquet('{info_file}') AS info
+            JOIN read_parquet('{loc_file}') AS loc
+            USING (id)
+        """
+        total = self.conn.execute(count_query).fetchone()[0]
+        # fetch page
+        offset = (page_number - 1) * limit
         query = f"""
             SELECT info.id,
                    info.voltage,
@@ -75,7 +84,8 @@ class SolarPanelRepository:
             LIMIT {limit} OFFSET {offset}
         """
         df = self.conn.execute(query).df()
-        return [SolarPanel(**row) for row in df.to_dict(orient='records')]
+        items = [SolarPanel(**row) for row in df.to_dict(orient='records')]
+        return items, total
 
     def find_one(self, uid: int) -> SolarPanel:
         """Retrieve a single solar panel record by ID."""

@@ -4,7 +4,7 @@ from typing import List as _list
 
 from common_fastapi import ResourceNotFoundException
 from .solar_panel_service import SolarPanelService
-from .solar_panel_dto import SolarPanelResult, SolarPanelCreateForm
+from .solar_panel_dto import SolarPanelResult, SolarPanelCreateForm, PaginatedSolarPanel
 
 solar_panel_router = APIRouter(prefix="/solar-panel", tags=["SolarPanel"])
 service = SolarPanelService()
@@ -20,13 +20,12 @@ async def read_solar_panels():
     """Retrieve all solar panel records."""
     return service.find_all()
 
-@solar_panel_router.get("/paginated", response_model=_list[SolarPanelResult])
+@solar_panel_router.get("/paginated", response_model=PaginatedSolarPanel)
 async def read_solar_panels_paginated(
     limit: int = Query(50, ge=1),
-    page_number: int = Query(1, ge=1, alias="pageNumber")
+    pageNumber: int = Query(1, ge=1)
 ):
-    """Retrieve paginated solar panel records."""
-    return service.find_all_by_pagination(limit, page_number)
+    return service.find_all_by_pagination(limit, pageNumber)
 
 @solar_panel_router.get("/{uid}", response_model=SolarPanelResult)
 async def read_solar_panel(uid: int):
