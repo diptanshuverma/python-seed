@@ -14,6 +14,9 @@ class SolarPanelService:
     def find_all(self) -> list[SolarPanel]:
         return self.repo.find_all()
 
+    def find_all_by_pagination(self, limit: int, page_number: int) -> list[SolarPanel]:
+        return self.repo.find_all_by_pagination(limit, page_number)
+
     def find_one(self, uid: int) -> SolarPanel:
         return self.repo.find_one(uid)
 
