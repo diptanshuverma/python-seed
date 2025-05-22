@@ -1,0 +1,35 @@
+[
+  {
+    "id": "wm-001",
+    "name": "Alpha Windmill",
+    "capacity": 1500.0,
+    "rotor_diameter": 90.0,
+    "hub_height": 100.0,
+    "manufacturer": "Siemens",
+    "country": "Germany",
+    "installation_date": "2020-05-20T00:00:00",
+    "status": "Active"
+  },
+  {
+    "id": "wm-002",
+    "name": "Beta Windmill",
+    "capacity": 1200.0,
+    "rotor_diameter": 80.0,
+    "hub_height": 95.0,
+    "manufacturer": "GE Renewable Energy",
+    "country": "USA",
+    "installation_date": "2019-08-15T00:00:00",
+    "status": "Maintenance"
+  },
+  {
+    "id": "wm-003",
+    "name": "Gamma Windmill",
+    "capacity": 1800.0,
+    "rotor_diameter": 100.0,
+    "hub_height": 110.0,
+    "manufacturer": "Vestas",
+    "country": "Denmark",
+    "installation_date": "2021-01-10T00:00:00",
+    "status": "Active"
+  }
+]
